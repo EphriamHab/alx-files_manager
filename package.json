@@ -26,9 +26,11 @@
   },
   "homepage": "https://github.com/EphriamHab/alx-files_manager#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.23.5",
     "eslint": "^8.54.0"
   },
   "dependencies": {
+    "@babel/node": "^7.22.19",
     "bull": "^4.11.5",
     "chai-http": "^4.4.0",
     "dotenv": "^16.3.1",

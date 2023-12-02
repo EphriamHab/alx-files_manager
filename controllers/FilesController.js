@@ -1,4 +1,4 @@
-/* eslint-disable import/no-named-as-default */
+
 /* eslint-disable no-unused-vars */
 import { tmpdir } from 'os';
 import { promisify } from 'util';
@@ -27,6 +27,7 @@ const statAsync = promisify(stat);
 const realpathAsync = promisify(realpath);
 const MAX_FILES_PER_PAGE = 20;
 const fileQueue = new Queue('thumbnail generation');
+// eslint-disable-next-line no-undef
 const NULL_ID = Buffer.alloc(24, '0').toString('utf-8');
 const isValidId = (id) => {
   const size = 24;
@@ -93,7 +94,9 @@ export default class FilesController {
       }
     }
     const userId = user._id.toString();
+    // eslint-disable-next-line no-undef
     const baseDir = `${process.env.FOLDER_PATH || ''}`.trim().length > 0
+      // eslint-disable-next-line no-undef
       ? process.env.FOLDER_PATH.trim()
       : joinPath(tmpdir(), DEFAULT_ROOT_FOLDER);
     // default baseDir == '/tmp/files_manager'
@@ -110,6 +113,7 @@ export default class FilesController {
     await mkDirAsync(baseDir, { recursive: true });
     if (type !== VALID_FILE_TYPES.folder) {
       const localPath = joinPath(baseDir, uuidv4());
+      // eslint-disable-next-line no-undef
       await writeFileAsync(localPath, Buffer.from(base64Data, 'base64'));
       newFile.localPath = localPath;
     }
