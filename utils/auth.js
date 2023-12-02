@@ -1,4 +1,4 @@
-
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable no-unused-vars */
 import sha1 from 'sha1';
 import { Request } from 'express';
@@ -22,7 +22,6 @@ export const getUserFromAuthorization = async (req) => {
   if (authorizationParts.length !== 2 || authorizationParts[0] !== 'Basic') {
     return null;
   }
-  // eslint-disable-next-line no-undef
   const token = Buffer.from(authorizationParts[1], 'base64').toString();
   const sepPos = token.indexOf(':');
   const email = token.substring(0, sepPos);

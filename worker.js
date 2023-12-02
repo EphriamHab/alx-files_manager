@@ -1,4 +1,4 @@
-
+/* eslint-disable import/no-named-as-default */
 import { writeFile } from 'fs';
 import { promisify } from 'util';
 import Queue from 'bull/lib/queue';
@@ -19,7 +19,6 @@ const userQueue = new Queue('email sending');
  */
 const generateThumbnail = async (filePath, size) => {
   const buffer = await imgThumbnail(filePath, { width: size });
-  // eslint-disable-next-line no-undef
   console.log(`Generating file: ${filePath}, size: ${size}`);
   return writeFileAsync(`${filePath}_${size}`, buffer);
 };
@@ -34,7 +33,6 @@ fileQueue.process(async (job, done) => {
   if (!userId) {
     throw new Error('Missing userId');
   }
-  // eslint-disable-next-line no-undef
   console.log('Processing', job.data.name || '');
   const file = await (await dbClient.filesCollection())
     .findOne({
@@ -62,7 +60,6 @@ userQueue.process(async (job, done) => {
   if (!user) {
     throw new Error('User not found');
   }
-  // eslint-disable-next-line no-undef
   console.log(`Welcome ${user.email}!`);
   try {
     const mailSubject = 'Welcome to ALX-Files_Manager by B3zaleel';

@@ -25,30 +25,24 @@ async function getNewToken(oAuth2Client, callback) {
     access_type: 'offline',
     scope: SCOPES,
   });
-  // eslint-disable-next-line no-undef
   console.log('Authorize this app by visiting this url:', authUrl);
   const rl = readline.createInterface({
-    // eslint-disable-next-line no-undef
     input: process.stdin,
-    // eslint-disable-next-line no-undef
     output: process.stdout,
   });
   rl.question('Enter the code from that page here: ', (code) => {
     rl.close();
     oAuth2Client.getToken(code, (err, token) => {
       if (err) {
-        // eslint-disable-next-line no-undef
         console.error('Error retrieving access token', err);
         return;
       }
       oAuth2Client.setCredentials(token);
       writeFileAsync(TOKEN_PATH, JSON.stringify(token))
         .then(() => {
-          // eslint-disable-next-line no-undef
           console.log('Token stored to', TOKEN_PATH);
           callback(oAuth2Client);
         })
-        // eslint-disable-next-line no-undef
         .catch((writeErr) => console.error(writeErr));
     });
   });
@@ -69,7 +63,6 @@ async function authorize(credentials, callback) {
     clientSecret,
     redirectURIs[0],
   );
-  // eslint-disable-next-line no-undef
   console.log('Client authorization beginning');
   // Check if we have previously stored a token.
   await readFileAsync(TOKEN_PATH)
@@ -77,7 +70,6 @@ async function authorize(credentials, callback) {
       oAuth2Client.setCredentials(JSON.parse(token));
       callback(oAuth2Client);
     }).catch(async () => getNewToken(oAuth2Client, callback));
-  // eslint-disable-next-line no-undef
   console.log('Client authorization done');
 }
 
@@ -94,11 +86,9 @@ function sendMailService(auth, mail) {
     requestBody: mail,
   }, (err, _res) => {
     if (err) {
-      // eslint-disable-next-line no-undef
       console.log(`The API returned an error: ${err.message || err.toString()}`);
       return;
     }
-    // eslint-disable-next-line no-undef
     console.log('Message sent successfully');
   });
 }
@@ -112,19 +102,16 @@ export default class Mailer {
       .then(async (content) => {
         await authorize(JSON.parse(content), (auth) => {
           if (auth) {
-            // eslint-disable-next-line no-undef
             console.log('Auth check was successful');
           }
         });
       })
       .catch((err) => {
-        // eslint-disable-next-line no-undef
         console.log('Error loading client secret file:', err);
       });
   }
 
   static buildMessage(dest, subject, message) {
-    // eslint-disable-next-line no-undef
     const senderEmail = process.env.GMAIL_SENDER;
     const msgData = {
       type: 'text/html',
@@ -158,7 +145,6 @@ export default class Mailer {
         );
       })
       .catch((err) => {
-        // eslint-disable-next-line no-undef
         console.log('Error loading client secret file:', err);
       });
   }

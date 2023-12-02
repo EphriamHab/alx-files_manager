@@ -12,10 +12,7 @@ class RedisClient {
     this.client = createClient();
     this.isClientConnected = true;
     this.client.on('error', (err) => {
-        if (typeof console !== 'undefined') {
-            // eslint-disable-next-line no-undef
-            console.error('Redis client failed to connect:', err.message || err.toString());
-          }
+      console.error('Redis client failed to connect:', err.message || err.toString());
       this.isClientConnected = false;
     });
     this.client.on('connect', () => {

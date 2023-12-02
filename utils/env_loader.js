@@ -4,7 +4,6 @@ import { existsSync, readFileSync } from 'fs';
  * Loads the appropriate environment variables for an event.
  */
 const envLoader = () => {
-  // eslint-disable-next-line no-undef
   const env = process.env.npm_lifecycle_event || 'dev';
   const path = env.includes('test') || env.includes('cover') ? '.env.test' : '.env';
 
@@ -15,7 +14,6 @@ const envLoader = () => {
       const delimPosition = line.indexOf('=');
       const variable = line.substring(0, delimPosition);
       const value = line.substring(delimPosition + 1);
-      // eslint-disable-next-line no-undef
       process.env[variable] = value;
     }
   }
